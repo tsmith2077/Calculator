@@ -5,8 +5,9 @@ const clearButton = document.querySelector('#clearButton');
 const container = document.querySelector('#output');
 inputNumber = "";
 let firstNumber = "";
-let displayValue = "";
-let operand;
+let total = "";
+let operand = "";
+
 
 // Event listener for number buttons and choosing first number
 numberKeys.forEach((numberKey) => {
@@ -28,23 +29,44 @@ numberKeys.forEach((numberKey) => {
 nonNumericKeys.forEach((nonNumericKey) => {
 
     nonNumericKey.addEventListener('click', () => {
+        if (operand && inputNumber) {
+            if (total != "") {
+                firstNumber = total;
+            }
+            solution(firstNumber, inputNumber);
+        }
         operand = (nonNumericKey.dataset.value);
         firstNumber = inputNumber;
         inputNumber = "";
-
-        // const content = document.createElement('div');
-        // content.classList.add('content');
-        // content.textContent = operand;
-        
-        // container.appendChild(content);
-        });
+    });
 });
-
-
 
 
 // Event listener for equal button 
 equalButton.addEventListener('click', () => {
+    if (inputNumber && firstNumber && operand) {
+        solution(firstNumber, inputNumber);
+        operand = "";
+    }
+});
+
+
+// Event listener for clear button, removes all values
+clearButton.addEventListener('click', () => {
+    firstNumber = "";
+    inputNumber = "";
+    operand = "";
+    total = "";
+
+    container.textContent = "";
+});
+
+
+// Return solution function
+function solution (firstNumber, inputNumber) {
+    if (total) {
+        firstNumber = total;
+    }
     if (operand == '+') {
         add(firstNumber, inputNumber)
     } else if (operand == '-') {
@@ -59,29 +81,11 @@ equalButton.addEventListener('click', () => {
     const content = document.createElement('div');
     content.classList.add('content');
     content.textContent = total;
-    
     container.appendChild(content);
-
-    firstNumber = "";
-    inputNumber = "";
-});
-
-
-// Event listener for clear button, removes all values
-clearButton.addEventListener('click', () => {
-    firstNumber = "";
-    inputNumber = "";
-    operand = "";
-
-    container.textContent = "";
-
-    firstNumber = "";
-    inputNumber = "";
-});
+}
 
 
 // Operand functions
-
 function add (firstNumber, inputNumber) {
     total = parseInt(firstNumber) + parseInt(inputNumber);
   };
@@ -95,6 +99,9 @@ function multiply (firstNumber, inputNumber) {
 };
   
 function divide (firstNumber, inputNumber) {
+    if (inputNumber == "0"){
+        alert("Derp, derp... You can't divide by 0!!")
+    }
     total = parseInt(firstNumber) / parseInt(inputNumber);
 };
   
