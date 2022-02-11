@@ -9,7 +9,10 @@ body {
     border: solid black;
     width: 400px;
     height: 75px;
-    margin: 20px;
+    /* margin: 20px; */
+    font-size: xx-large;
+    align-content: center;
+    justify-content: center;
 }
 
 #keys {

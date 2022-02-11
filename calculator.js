@@ -1,24 +1,27 @@
 const numberKeys = document.querySelectorAll('.numberKey');
 const nonNumericKeys = document.querySelectorAll('.nonNumericKey')
+const equalButton = document.querySelector('#equalButton');
+const clearButton = document.querySelector('#clearButton');
 const container = document.querySelector('#output');
-let firstNumber = 0;
+inputNumber = "";
+let firstNumber = "";
+let displayValue = "";
 let operand;
 
-// Event listener for number buttons
+// Event listener for number buttons and choosing first number
 numberKeys.forEach((numberKey) => {
 
     numberKey.addEventListener('click', () => {
-        firstNumber += (numberKey.dataset.value);
+        container.textContent = "";
+        inputNumber += numberKey.dataset.value;
 
         const content = document.createElement('div');
         content.classList.add('content');
-        content.textContent = firstNumber;
+        content.textContent = inputNumber;
         
         container.appendChild(content);
         });
 });
-
-console.log(container);
 
 
 // Event listener for operand buttons
@@ -26,77 +29,73 @@ nonNumericKeys.forEach((nonNumericKey) => {
 
     nonNumericKey.addEventListener('click', () => {
         operand = (nonNumericKey.dataset.value);
+        firstNumber = inputNumber;
+        inputNumber = "";
 
-        const content = document.createElement('div');
-        content.classList.add('content');
-        content.textContent = operand;
+        // const content = document.createElement('div');
+        // content.classList.add('content');
+        // content.textContent = operand;
         
-        container.appendChild(content);
+        // container.appendChild(content);
         });
 });
 
 
-// Event listener for equal button - not finished, need to add 2nd number first
-// nonNumericKey.addEventListener('click', () => {
-//     operand = (nonNumericKey.dataset.value);
 
-//     const content = document.createElement('div');
-//     content.classList.add('content');
-//     content.textContent = operand;
+
+// Event listener for equal button 
+equalButton.addEventListener('click', () => {
+    if (operand == '+') {
+        add(firstNumber, inputNumber)
+    } else if (operand == '-') {
+        subtract(firstNumber, inputNumber)
+    }  else if (operand == 'x') {
+        multiply(firstNumber, inputNumber)
+    }  else if (operand == '/') {
+        divide(firstNumber, inputNumber)
+    } 
+
+    container.textContent = "";
+    const content = document.createElement('div');
+    content.classList.add('content');
+    content.textContent = total;
     
-//     container.appendChild(content);
-//     });
+    container.appendChild(content);
+
+    firstNumber = "";
+    inputNumber = "";
+});
 
 
+// Event listener for clear button, removes all values
+clearButton.addEventListener('click', () => {
+    firstNumber = "";
+    inputNumber = "";
+    operand = "";
+
+    container.textContent = "";
+
+    firstNumber = "";
+    inputNumber = "";
+});
 
 
+// Operand functions
 
-
-// Old Calculator project
-// const add = function(number1, number2) {
-//     return number1 + number2;
-//   };
+function add (firstNumber, inputNumber) {
+    total = parseInt(firstNumber) + parseInt(inputNumber);
+  };
   
-//   const subtract = function(number1, number2) {
-//       return number1 -  number2;
-//   };
+function subtract (firstNumber, inputNumber) {
+    total = parseInt(firstNumber) - parseInt(inputNumber);
+  };
   
+function multiply (firstNumber, inputNumber) {
+    total = parseInt(firstNumber) * parseInt(inputNumber);
+};
   
+function divide (firstNumber, inputNumber) {
+    total = parseInt(firstNumber) / parseInt(inputNumber);
+};
   
-//   const sum = function(arr) {
-//     let total = 0;
-//     if (arr.length == 0) {
-//       return 0;
-//     }
-//     for (i = 0; i < arr.length; i++) {
-//       total += arr[i];
-//     }
-//     return total;
-//   };
-  
-  
-//   const multiply = function(arr) {
-//     let total = 1;
-//     for (i = 0; i < arr.length; i++) {
-//       total = total * arr[i];
-//     }
-//     return total;
-//   };
-  
-//   const power = function(number1, number2) {
-//     return number1 ** number2;
-//   };
-  
-  
-//   const factorial = function(number) {
-//     let total = 1;
-//     if (number == 0 || number == 1) {
-//       return 1;
-//     }
-//     for (i = number; i > 0; i--) {
-//         total = total * i;
-//         console.log(total);
-//       }
-//       return total;
-//     }
   
