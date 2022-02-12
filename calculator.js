@@ -2,6 +2,7 @@ const numberKeys = document.querySelectorAll('.numberKey');
 const nonNumericKeys = document.querySelectorAll('.nonNumericKey')
 const equalButton = document.querySelector('#equalButton');
 const clearButton = document.querySelector('#clearButton');
+const decimalButton = document.querySelector('#decimalButton');
 const container = document.querySelector('#output');
 inputNumber = "";
 let firstNumber = "";
@@ -15,6 +16,9 @@ numberKeys.forEach((numberKey) => {
     numberKey.addEventListener('click', () => {
         container.textContent = "";
         inputNumber += numberKey.dataset.value;
+        if (numberKey.dataset.value == ".") {
+            decimalButton.disabled = true;
+        }
 
         const content = document.createElement('div');
         content.classList.add('content');
@@ -35,6 +39,7 @@ nonNumericKeys.forEach((nonNumericKey) => {
             }
             solution(firstNumber, inputNumber);
         }
+        decimalButton.disabled = false;
         operand = (nonNumericKey.dataset.value);
         firstNumber = inputNumber;
         inputNumber = "";
@@ -47,6 +52,7 @@ equalButton.addEventListener('click', () => {
     if (inputNumber && firstNumber && operand) {
         solution(firstNumber, inputNumber);
         operand = "";
+        decimalButton.disabled = false;
     }
 });
 
@@ -57,6 +63,7 @@ clearButton.addEventListener('click', () => {
     inputNumber = "";
     operand = "";
     total = "";
+    decimalButton.disabled = false;
 
     container.textContent = "";
 });
@@ -82,27 +89,32 @@ function solution (firstNumber, inputNumber) {
     content.classList.add('content');
     content.textContent = total;
     container.appendChild(content);
+
+    decimalButton.disabled = false;
 }
 
 
 // Operand functions
 function add (firstNumber, inputNumber) {
-    total = parseInt(firstNumber) + parseInt(inputNumber);
+    total = (parseFloat(firstNumber) + parseFloat(inputNumber)).toFixed(2);
   };
   
 function subtract (firstNumber, inputNumber) {
-    total = parseInt(firstNumber) - parseInt(inputNumber);
+    total = (parseFloat(firstNumber) - parseFloat(inputNumber)).toFixed(2);
+    total = total.toString();
   };
   
 function multiply (firstNumber, inputNumber) {
-    total = parseInt(firstNumber) * parseInt(inputNumber);
+    total = (parseFloat(firstNumber) * parseFloat(inputNumber)).toFixed(2);
+    total = total.toString();
 };
   
 function divide (firstNumber, inputNumber) {
     if (inputNumber == "0"){
         alert("Derp, derp... You can't divide by 0!!")
     }
-    total = parseInt(firstNumber) / parseInt(inputNumber);
+    total = (parseFloat(firstNumber) / parseFloat(inputNumber)).toFixed(2);
+    total = total.toString();
 };
   
   
