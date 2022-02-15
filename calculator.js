@@ -15,7 +15,12 @@ numberKeys.forEach((numberKey) => {
 
     numberKey.addEventListener('click', () => {
         container.textContent = "";
-        inputNumber += numberKey.dataset.value;
+        if (total != "" && operand == "") {
+            inputNumber = numberKey.dataset.value;
+            total = "";
+        } else {
+            inputNumber += numberKey.dataset.value;
+        }
         if (numberKey.dataset.value == ".") {
             decimalButton.disabled = true;
         }
@@ -97,16 +102,19 @@ function solution (firstNumber, inputNumber) {
 // Operand functions
 function add (firstNumber, inputNumber) {
     total = (parseFloat(firstNumber) + parseFloat(inputNumber)).toFixed(2);
+    total = total.replace(/\.00$/,'');
   };
   
 function subtract (firstNumber, inputNumber) {
     total = (parseFloat(firstNumber) - parseFloat(inputNumber)).toFixed(2);
     total = total.toString();
+    total = total.replace(/\.00$/,'');
   };
   
 function multiply (firstNumber, inputNumber) {
     total = (parseFloat(firstNumber) * parseFloat(inputNumber)).toFixed(2);
     total = total.toString();
+    total = total.replace(/\.00$/,'');
 };
   
 function divide (firstNumber, inputNumber) {
@@ -115,6 +123,9 @@ function divide (firstNumber, inputNumber) {
     }
     total = (parseFloat(firstNumber) / parseFloat(inputNumber)).toFixed(2);
     total = total.toString();
+    total = total.replace(/\.00$/,'');
 };
   
   
+// Arrange everything into a calc dispaly
+// Need Fix: hitting decimal after running equation uses last integer. Results in wrong numbers being used.

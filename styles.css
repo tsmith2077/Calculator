@@ -4,39 +4,47 @@ body {
     align-items: center;
 }
 
+
+.container {
+    display: flex;
+    justify-content: center;
+    border: solid black;
+    height: 400px;
+    width: 325px;
+}
+
 #output {
     display: flex;
     border: solid black;
-    width: 400px;
+    width: 100%;
     height: 75px;
     font-size: xx-large;
-    align-content: center;
     justify-content: center;
-}
-
-#keys {
-    display: flex;
-    align-self: center;
     align-items: center;
-    flex-direction: column;
+    border: 3px solid black;
+    box-sizing: border-box;
 }
 
-#numberKeys {
-    display: flex; 
-    gap: 16px;   
-    margin-bottom: 20px;
-    margin-top: 20px;
-} 
 
-#nonNumericKeys {
+#numberKeys, #nonNumericKeys {
     display: flex;
-    gap: 16px;  
-    padding: 5px 20px; 
+    flex-wrap: wrap;    
 }
 
-#clearButton {
-    margin-top: 20px;
+#numberKeys > * {
+    flex: row;
+    flex: 2 1 25%;
+    background-color: aquamarine;
+    border: 3px solid black;
 }
+
+#nonNumericKeys > * {
+    flex-direction: row;
+    flex: 1 1 25%;
+    background-color: aqua;
+    border: 3px solid black;
+}
+
 
 button {
     padding: 10px 20px;
