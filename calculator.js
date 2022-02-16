@@ -1,6 +1,7 @@
 const numberKeys = document.querySelectorAll('.numberKey');
 const nonNumericKeys = document.querySelectorAll('.nonNumericKey')
 const equalButton = document.querySelector('#equalButton');
+const deleteButton = document.querySelector('#deleteButton');
 const clearButton = document.querySelector('#clearButton');
 const decimalButton = document.querySelector('#decimalButton');
 const container = document.querySelector('#output');
@@ -8,11 +9,15 @@ inputNumber = "";
 let firstNumber = "";
 let total = "";
 let operand = "";
+const operators =  ['+', '-', '*', '/'];
+const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
 
 
 // Event listener for number buttons and choosing first number
 numberKeys.forEach((numberKey) => {
 
+
+    // Event listener for clicking button number keys
     numberKey.addEventListener('click', () => {
         container.textContent = "";
         if (total != "" && operand == "") {
@@ -32,6 +37,53 @@ numberKeys.forEach((numberKey) => {
         container.appendChild(content);
         });
 });
+
+// Event listener for hitting keyboard keys
+// window.addEventListener('keydown', (e) => {
+//     const isOperator = (e) => operators.includes(e);
+//     const isNumber = (e) => numbers.includes(e);
+
+//     if (isNumber || e.key == "."){     // Check to see if keypress is a number
+//         container.textContent = "";
+//         if (total != "" && operand == "") {
+//             inputNumber = e.key;
+//             total = "";
+//         } else {
+//             inputNumber += e.key;
+//         }
+//         if (e.key == "." && inputNumber.includes(".")) {
+            
+//         } else {
+//             decimalButton.disabled = true;
+//         }
+    // } else if (isOperator) {                // Check to see if keypress is an operator
+    //     if (operand && inputNumber) {
+    //         if (total != "") {
+    //             firstNumber = total;
+    //         }
+    //         solution(firstNumber, inputNumber);
+    //     }
+    //     decimalButton.disabled = false;
+    //     operand = (e.key);
+    //     firstNumber = inputNumber;
+    //     inputNumber = "";
+    // } else if (e.key == "=") {                          // Check to see if keypress is "="
+    //     if (inputNumber && firstNumber && operand) {
+    //         solution(firstNumber, inputNumber);
+    //         operand = "";
+    //         decimalButton.disabled = false;
+    //     }
+    // } else {
+        
+    // }
+//     const content = document.createElement('div');
+//     content.classList.add('content');
+//     content.textContent = inputNumber;
+    
+//     container.appendChild(content);
+//     }
+// });
+
 
 
 // Event listener for operand buttons
@@ -71,6 +123,16 @@ clearButton.addEventListener('click', () => {
     decimalButton.disabled = false;
 
     container.textContent = "";
+});
+
+deleteButton.addEventListener('click', () => {
+    inputNumber = inputNumber.slice(0, -1);
+    container.textContent = ""
+    const content = document.createElement('div');
+    content.classList.add('content');
+    content.textContent = inputNumber;
+    
+    container.appendChild(content);
 });
 
 
@@ -125,7 +187,8 @@ function divide (firstNumber, inputNumber) {
     total = total.toString();
     total = total.replace(/\.00$/,'');
 };
+
   
   
-// Arrange everything into a calc dispaly
-// Need Fix: hitting decimal after running equation uses last integer. Results in wrong numbers being used.
+// Add keyboard support
+// Numbers work but even hitting shift key will print out to output
